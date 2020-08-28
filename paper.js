@@ -8,19 +8,19 @@ class Paper {
             density: 1.2
         }
 
-        this.body = Bodies.circle(50, 650, 10, options);
-        this.radius = 20;
+        this.body = Bodies.circle(50, 650, 18, options);
+        this.radius = 100;
+        this.image = loadImage("paper.png");
         World.add(world, this.body);
     }
 
     display(){
-        ellipse(this.body.position.x, this.body.position.y, 20, 20);
         var angle = this.body.angle;
         push()
         translate(this.body.position.x, this.body.position.y);
         rotate(angle);
-        ellipseMode(CENTER);
-        fill("white");
+        imageMode(CENTER);
+        image(this.image, 0, 0, 50, 50);
         pop();
     }
 }

@@ -5,14 +5,9 @@ const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 
 var ground;
-var dustbin, dustbinImage;
+var dustbin;
 var boxBottom, boxLeft, boxRight;
 var crumpledPaper;
-
-
-function preload(){
-	dustbinImage = loadImage("dustbin.png");
-}
 
 
 function setup() {
@@ -21,26 +16,13 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	ground = new Ground(400, height, width, 10);
 	crumpledPaper = new Paper();
 
-	boxBottom = Bodies.rectangle(700, 690, 100, 10, {isStatic:true});
-	World.add(world, boxBottom);
-	boxLeft = Bodies.rectangle(655, 625, 10, 125, {isStatic:true});
-	World.add(world, boxLeft);
-	boxRight = Bodies.rectangle(745, 625, 10, 125, {isStatic:true});
-	World.add(world, boxRight);
+	ground = new Ground(400, 700, 800, 20);
 
-	boxBottomBody = createSprite(700, 690, 100, 10);
-	boxBottomBody.shapeColor = "white";
-	boxLeftBody = createSprite(655, 625, 10, 125);
-	boxLeftBody.shapeColor = "white";
-	boxRightBody = createSprite(745, 625, 10, 125);
-	boxRightBody.shapeColor = "white";
-
-	dustbin = createSprite(700, 630, 0, 0);
-	dustbin.addImage(dustbinImage);
-	dustbin.scale = 0.42;	
+	boxBottom = new boxSide(700, 630, 100, 10);
+	boxLeft = new boxSide(655, 625, 10, 125);
+	boxRight = new boxSide(745, 625, 10, 125);
 
 	Engine.run(engine);
 }
@@ -50,11 +32,15 @@ function draw() {
   rectMode(CENTER);
   background("grey");
 
-  drawSprites();
+  dustbin = loadImage("dustbin.png");
+  dustbin.scale = 0.42;
+  World.add(world, dustbin);
 
   ground.display();
   crumpledPaper.display();
-  
+
+  boxBottom.show();
+
 }
 
 
